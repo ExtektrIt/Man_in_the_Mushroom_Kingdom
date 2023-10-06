@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/nav_title">
+
+    <fragment
+        android:id="@+id/nav_title"
+        android:name="com.andre.guryanov.testgame.TitleFragment"
+        tools:layout="@layout/fragment_title" />
+    <fragment
+        android:id="@+id/nav_goomba"
+        android:name="com.andre.guryanov.testgame.BattleGoombaFragment"
+        tools:layout="@layout/fragment_battle_goomba" />
+    <fragment
+        android:id="@+id/nav_bowser"
+        android:name="com.andre.guryanov.testgame.BattleBowserFragment"
+        tools:layout="@layout/fragment_battle_bowser" />
+    <fragment
+        android:id="@+id/nav_congrats"
+        android:name="com.andre.guryanov.testgame.CongratulationsFragment"
+        tools:layout="@layout/fragment_congratulations" />
+</navigation>
