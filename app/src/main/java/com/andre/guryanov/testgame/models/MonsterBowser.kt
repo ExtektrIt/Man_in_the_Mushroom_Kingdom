@@ -8,7 +8,6 @@ import com.andre.guryanov.testgame.engine.modelData.BowserData
 import kotlinx.coroutines.Job
 
 class MonsterBowser(
-//    override val id: Int,
     override val attack: Int,
     override val defense: Int,
     override val maxHealth: Int,
@@ -24,9 +23,8 @@ class MonsterBowser(
     }
 
 
-    override fun animDefaultLoop() {//(callback: () -> Unit) {
+    override fun animDefaultLoop() {
         Animator.animateImage(UiManager.bowser(), modelData.animDefault, true) {
-//            callback()
         }
     }
 
@@ -60,9 +58,8 @@ class MonsterBowser(
         }
     }
 
-    override fun animWinLoop() {//(callback: () -> Unit) {
+    override fun animWinLoop() {
         Animator.animateImage(UiManager.bowser(), modelData.animWinLoop, true) {
-           // callback()
         }
     }
 
@@ -73,9 +70,8 @@ class MonsterBowser(
         }
     }
 
-    override fun animLoseLoop() {//(callback: () -> Unit) {
+    override fun animLoseLoop() {
         Animator.animateImage(UiManager.bowser(), modelData.animLoseLoop, true) {
-            //callback()
         }
     }
 

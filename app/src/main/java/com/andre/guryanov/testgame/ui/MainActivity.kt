@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -50,9 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-//        Game.setUI(this)
         UiManager.init(this)
-//        Game.launchGame(this)
         Game.launchGame()
     }
 
@@ -159,9 +156,7 @@ class MainActivity : AppCompatActivity() {
 
     fun closeOptions() {
         binding.options.visibility = View.GONE
-        UiManager.restoreScreenBrightness()
         binding.tvMessage.text = getString(R.string.game)
-//        navController.navigate(R.id.nav_title)
     }
 
     private fun showOrHideRestoreButtons() {
@@ -176,19 +171,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnRestoreBowser.visibility = if (CreatureConfigurator.bowser == null) invis
         else vis
-
-
-//        if (CreatureConfigurator.mario == null)
-//            binding.btnRestoreMario.visibility = invis
-//        else vis
-//
-//        if (CreatureConfigurator.goomba == null)
-//            binding.btnRestoreGoomba.visibility = invis
-//        else vis
-//
-//        if (CreatureConfigurator.bowser == null)
-//            binding.btnRestoreBowser.visibility = invis
-//        else vis
     }
 
 
@@ -257,9 +239,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 //        super.onBackPressed()
-
-//        if (Game.isPlaying) Game.pause()
-//        else Game.resume()
     }
 
 }

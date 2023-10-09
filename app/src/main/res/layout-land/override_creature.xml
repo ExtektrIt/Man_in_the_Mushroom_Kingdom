@@ -61,7 +61,8 @@
                     android:hint="@string/attack_"
                     android:inputType="numberSigned|number"
                     android:maxEms="2"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#2962FF" />
             </LinearLayout>
 
             <LinearLayout
@@ -94,7 +95,8 @@
                     android:hint="@string/defense"
                     android:inputType="numberSigned|number"
                     android:maxEms="2"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#2962FF" />
             </LinearLayout>
 
             <LinearLayout
@@ -127,7 +129,8 @@
                     android:hint="@string/max_health"
                     android:inputType="numberSigned|number"
                     android:maxEms="4"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#2962FF" />
             </LinearLayout>
 
             <LinearLayout
@@ -159,7 +162,8 @@
                     android:hint="@string/damage"
                     android:inputType="numberSigned|number"
                     android:maxEms="4"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#2962FF" />
 
                 <TextView
                     android:id="@+id/textView16"
@@ -180,7 +184,8 @@
                     android:hint="@string/damage"
                     android:inputType="numberSigned|number"
                     android:maxEms="4"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#2962FF" />
             </LinearLayout>
 
             <LinearLayout
@@ -213,7 +218,8 @@
                     android:hint="@string/first_aid"
                     android:inputType="numberSigned|number"
                     android:maxEms="1"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#2962FF" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

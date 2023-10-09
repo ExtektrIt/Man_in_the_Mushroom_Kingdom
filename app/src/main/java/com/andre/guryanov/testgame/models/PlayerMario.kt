@@ -9,7 +9,6 @@ import com.andre.guryanov.testgame.engine.modelData.MarioData
 import kotlinx.coroutines.Job
 
 class PlayerMario(
-//    override val id: Int,
     override val attack: Int,
     override val defense: Int,
     override val maxHealth: Int,
@@ -35,10 +34,8 @@ class PlayerMario(
     }
 
 
-    override fun animDefaultLoop() {//(callback: () -> Unit) {
-        Animator.animateImage(UiManager.mario(), modelData.animDefault, true) {
-//            callback()
-        }
+    override fun animDefaultLoop() {
+        Animator.animateImage(UiManager.mario(), modelData.animDefault, true) {}
     }
 
     override fun animAttack(callback: () -> Unit) : Job {
@@ -68,7 +65,7 @@ class PlayerMario(
         }
     }
 
-    override fun animWinLoop() {//(callback: () -> Unit) {
+    override fun animWinLoop() {
 
     }
 
@@ -79,10 +76,8 @@ class PlayerMario(
         }
     }
 
-    override fun animLoseLoop() {//(callback: () -> Unit) {
-        Animator.animateImage(UiManager.mario(), modelData.animLoseLoop, true) {
-            //callback()
-        }
+    override fun animLoseLoop() {
+        Animator.animateImage(UiManager.mario(), modelData.animLoseLoop, true) {}
     }
 
     fun animAppearance(callback: () -> Unit) : Job {

@@ -147,55 +147,6 @@ object UiManager {
         activity.getBlackout().invalidate()
     }
 
-//    fun prepareLevel(level: Int) {
-//        invisibleAllViews()
-//        anim.stopAllAnim()
-//        when (level) {
-//            0 -> {
-//                anim.animateImage(activity.getBG(), Background.getImages(), true, 2000) {}
-////                activity.getBG().setImageResource(R.drawable.bg_1_m)
-//            }
-//            1 -> {
-//                activity.getBG().setImageResource(R.drawable.bg_goomba_test)
-//                activity.getMarioPH().visibility = View.VISIBLE
-//                activity.getMarioPH().setImageResource(R.drawable.empty)
-//                activity.getGoombaPH().visibility = View.VISIBLE
-//                anim.animateImage(activity.getGoombaPH(), 1, Goomba.default(), true) {}
-//            }
-//            2 -> {
-//                activity.getBG().setImageResource(R.drawable.bg2_test)
-//                activity.getMarioPH().visibility = View.VISIBLE
-//                activity.getMarioPH().setImageResource(R.drawable.empty)
-//                activity.getBowserPH().visibility = View.VISIBLE
-//                anim.animateImage(activity.getBowserPH(), 2, Bowser.default(), true) {}
-//            }
-//            3 -> {
-//
-//            }
-////            else -> return
-//        }
-//    }
-
-//    fun launchLevel(level: Int) {
-//        when(level) {
-//            1, 2 -> {
-//                anim.animateImage(activity.getMarioPH(), Mario.appearance(), false, 200) {
-//                    anim.animateImage(activity.getMarioPH(), Mario.default(), true, 300) {
-//
-//                        Game.startDancing()
-//                    }
-//                }
-//                activity.selectLevel(level)
-//////                anim.animateImage(activity.getGoombaPH(), 1, Goomba().default(), true) {}
-//            }
-////            2 -> anim.animateImage(activity.getBowserPH(), 2, Bowser().default(), true) {}
-//        }
-//    }
-
-//    fun stopAllAnimations() {
-//        anim.stopAllAnim()
-//    }
-
     fun invisibleAllViews() {
         val invis = View.INVISIBLE
         activity.getMarioPH().visibility = invis
@@ -203,62 +154,10 @@ object UiManager {
         activity.getBowserPH().visibility = invis
         livesGroup().visibility = invis
         message().visibility = invis
-//        playerHealth().visibility = invis
-//        monsterHealth().visibility = invis
-
-//        activity.getBG().visibility = invis
     }
-
-    fun lockButtons() {
-
-    }
-
-    fun unlockButtons() {
-
-    }
-
-//    fun changeImageBrightness(image: ImageView, freq: Long) {
-//        CoroutineScope(Dispatchers.Main).launch {
-//            val s = arrayOf('A', 'B', 'C', 'D', 'E', 'F')
-//            for (i in 1..16) {
-//                val color = if (i < 10) "$i{$i}000000"
-//                else "${}${}000000"
-//            }
-//            activity.getBlackout().setBackgroundColor()
-//        }
-//    }
 
     fun selectLevel(level: Int) {
         activity.selectLevel(level)
-//        val dest = when(level){
-//            1 -> R.id.nav_goomba
-//            2 -> R.id.nav_bowser
-//            0 -> R.id.nav_title
-//            else -> R.id.nav_congrats
-//        }
-//        activity.navController.navigate(dest)
     }
-
-//    fun startActionOnFragment(level: Int, action: () -> Unit) {
-//        when(level) {
-//            0 -> currentFrag as TitleFragment
-//            1 -> currentFrag as BattleGoombaFragment
-//            2 -> currentFrag as BattleBowserFragment
-//            3 -> currentFrag as CongratulationsFragment
-//            else -> return
-//        }
-//        action()
-//    }
-
-//    fun t() {
-//        startActionOnFragment(1) {
-//            currentFrag
-//        }
-//        activity
-//    }
-
-//    fun stopAnim() {
-//        anim.stopAllAnim()
-//    }
 
 }

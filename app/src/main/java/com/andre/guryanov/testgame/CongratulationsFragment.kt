@@ -29,18 +29,14 @@ class CongratulationsFragment : Fragment(), Controller {
 
         binding.button2.setOnClickListener {
             Game.finish()
-//            Level.getLevel(0).startLevelSwitching()
-
         }
     }
 
     override fun lockActionButtons() {
-//        binding.button.visibility = View.INVISIBLE
         binding.button2.visibility = View.INVISIBLE
     }
 
     override fun unlockActionButtons() {
-//        binding.button.visibility = View.VISIBLE
         binding.button2.visibility = View.VISIBLE
     }
 

@@ -40,8 +40,6 @@ object Game {
         turnOwner = mario
         mario?.animAppearance {}?.invokeOnCompletion {
             mario?.animDefaultLoop()
-//            controller.unlockActionButtons()
-//            UiManager.unlockButtons()
         }
     }
 
@@ -55,8 +53,6 @@ object Game {
     fun resume() {
         if ( !isPlaying ) SoundPlayer.playSFX(UiManager.context(), SoundPlayer.SFX_PAUSE) {}
         SoundPlayer.resume()
-
-
     }
 
     fun load() {
@@ -87,7 +83,6 @@ object Game {
         val jobOpponent = if (success!!) opponent.animDamage { }
         else opponent.animDefense { }
 
-//        if ((turnOwner !is PlayerMario) && ( ! opponentIsAlive)) SoundPlayer.stopWithEffect()
         completeTurn(jobOwner, jobOpponent, opponentIsAlive)
     }
 
@@ -185,7 +180,6 @@ object Game {
     }
 
     private fun lose() {
-//        SoundPlayer.stopWithEffect()
         finish()
     }
 
@@ -195,17 +189,5 @@ object Game {
         level = Level.select(Level.TITLE)
         level.startLevelSwitching()
     }
-
-//
-//    private fun nextLevel() {
-//        level++
-//    }
-//
-//    private fun congrats() {
-//
-//    }
-
-
-
 
 }

@@ -8,7 +8,6 @@ import com.andre.guryanov.testgame.engine.modelData.GoombaData
 import kotlinx.coroutines.Job
 
 class MonsterGoomba(
-//    override val id: Int,
     override val attack: Int,
     override val defense: Int,
     override val maxHealth: Int,
@@ -24,10 +23,8 @@ class MonsterGoomba(
     }
 
 
-    override fun animDefaultLoop() {//(callback: () -> Unit) {
-        Animator.animateImage(UiManager.goomba(), modelData.animDefault, true) {
-//            callback()
-        }
+    override fun animDefaultLoop() {
+        Animator.animateImage(UiManager.goomba(), modelData.animDefault, true) {}
     }
 
     override fun animAttack(callback: () -> Unit) : Job {
@@ -58,9 +55,8 @@ class MonsterGoomba(
         }
     }
 
-    override fun animWinLoop() {//(callback: () -> Unit) {
+    override fun animWinLoop() {
         Animator.animateImage(UiManager.goomba(), modelData.animWinLoop, true) {
-            //callback()
         }
     }
 
@@ -71,7 +67,7 @@ class MonsterGoomba(
         }
     }
 
-    override fun animLoseLoop() {//(callback: () -> Unit) {
+    override fun animLoseLoop() {
 
     }
 

@@ -24,9 +24,6 @@ class BattleBowserFragment : Fragment(), Controller {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        unlockActionButtons()
-
-
         binding.button.setOnClickListener {
             Game.healPlayer()
         }
@@ -35,7 +32,6 @@ class BattleBowserFragment : Fragment(), Controller {
             Game.attack()
         }
 
-//        Game.controller = this
         bindController()
     }
 

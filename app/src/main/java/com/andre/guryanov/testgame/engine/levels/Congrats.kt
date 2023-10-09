@@ -19,7 +19,6 @@ class Congrats : Level() {
         UiManager.background().setImageResource(bgImages[0])
         UiManager.message().text = UiManager.context().getString(R.string.congrats)
         UiManager.message().visibility = View.VISIBLE
-//        Game.setMario(null)
     }
 
     override fun launchLevel() {

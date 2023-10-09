@@ -14,7 +14,6 @@ import com.andre.guryanov.testgame.engine.UiManager
 class BattleGoombaFragment : Fragment(), Controller {
 
     lateinit var binding: FragmentBattleGoombaBinding
-    var t = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +25,6 @@ class BattleGoombaFragment : Fragment(), Controller {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        lockActionButtons()
 
         binding.button.setOnClickListener {
             Game.healPlayer()
@@ -34,17 +32,8 @@ class BattleGoombaFragment : Fragment(), Controller {
 
         binding.button2.setOnClickListener {
             Game.attack()
-//            if (t) {
-//                t = false
-//                Animator.getJob(UiManager.goomba())?.cancel()
-//            }
-//            else {
-//                t = true
-//                Animator.getJob(UiManager.goomba())?.start()
-//            }
         }
 
-//        Game.controller = this
         bindController()
     }
 

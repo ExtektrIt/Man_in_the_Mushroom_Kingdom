@@ -14,11 +14,6 @@ object Animator {
     ) : Job {
         jobs[view.id]?.cancel()
         jobs[view.id] = CoroutineScope(Dispatchers.IO).launch {
-
-//            job?.invokeOnCompletion {
-//
-//            }
-//            var i = loop
             do {
                 for (it in arr) {
                     withContext(Dispatchers.Main) {
@@ -28,37 +23,11 @@ object Animator {
                 }
             }
             while (loop)
-
-//            while (i <= loop) {
-//                for (it in arr) {
-//                    withContext(Dispatchers.Main) {
-//                        view.setImageResource(it)
-//                    }
-//                    delay(freq)
-//                }
-//                i++
-//            }
-
-//            withContext(Dispatchers.Main) {
-//                callback()
-//            }
             jobs[ callbackId(view.id) ] = CoroutineScope(Dispatchers.Main).launch {
                 callback()
             }
-
         }
         return jobs[view.id]!!
-    }
-
-    fun join(job: Job, func: () -> Unit) {
-        CoroutineScope(Dispatchers.Main).launch {
-            job.join()
-            func()
-        }
-    }
-
-    fun getJob(view: ImageView) : Job? {
-        return jobs[view.id]
     }
 
     fun callbackId(id: Int) : Int {
@@ -71,17 +40,4 @@ object Animator {
         }
 
     }
-
-    fun marioAttack(success: Boolean, monsterId: Int, callback: () -> Unit) {
-
-    }
-
-    fun marioDefense(monsterId: Int, callback: () -> Unit) {
-
-    }
-
-
-
-
-
 }
