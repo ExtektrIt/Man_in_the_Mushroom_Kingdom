@@ -20,10 +20,11 @@
 
     <Button
         android:id="@+id/button"
-        style="@android:style/Widget.Material.Light.Button.Toggle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Опции"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/options"
         app:layout_constraintBottom_toBottomOf="@+id/iv_panel"
         app:layout_constraintEnd_toEndOf="@+id/iv_panel"
         app:layout_constraintStart_toStartOf="@+id/iv_panel"
@@ -32,9 +33,11 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Начать"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_panel"
         app:layout_constraintStart_toStartOf="@+id/iv_panel"

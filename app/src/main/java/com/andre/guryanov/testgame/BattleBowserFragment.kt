@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.andre.guryanov.testgame.databinding.FragmentBattleBowserBinding
 import com.andre.guryanov.testgame.engine.Game
+import com.andre.guryanov.testgame.engine.Controller
 
-class BattleBowserFragment : Fragment() {
+class BattleBowserFragment : Fragment(), Controller {
 
     lateinit var binding:FragmentBattleBowserBinding
 
@@ -23,6 +24,8 @@ class BattleBowserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        unlockActionButtons()
+
 
         binding.button.setOnClickListener {
             Game.healPlayer()
@@ -31,5 +34,18 @@ class BattleBowserFragment : Fragment() {
         binding.button2.setOnClickListener {
             Game.attack()
         }
+
+//        Game.controller = this
+        bindController()
+    }
+
+    override fun lockActionButtons() {
+        binding.button.visibility = View.INVISIBLE
+        binding.button2.visibility = View.INVISIBLE
+    }
+
+    override fun unlockActionButtons() {
+        binding.button.visibility = View.VISIBLE
+        binding.button2.visibility = View.VISIBLE
     }
 }

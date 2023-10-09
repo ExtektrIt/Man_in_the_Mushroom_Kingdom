@@ -1,89 +1,62 @@
 package com.andre.guryanov.testgame.engine
 
-import com.andre.guryanov.testgame.engine.animModels.Bowser
-import com.andre.guryanov.testgame.engine.animModels.Goomba
-import com.andre.guryanov.testgame.engine.animModels.Mario
+import com.andre.guryanov.testgame.engine.levels.Level
+import com.andre.guryanov.testgame.engine.levels.Title
 import com.andre.guryanov.testgame.models.Creature
-import com.andre.guryanov.testgame.models.Monster
-import com.andre.guryanov.testgame.models.Player
-import com.andre.guryanov.testgame.ui.MainActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.andre.guryanov.testgame.models.PlayerMario
+import kotlinx.coroutines.*
 
 object Game {
-    const val MARIO_ID = 0
-    const val GOOMBA_ID = 1
-    const val BOWSER_ID = 2
-    const val BG_ID = 2
 
-    private var ui = UiManager()//: MainActivity? = null
-    private val soundPlayer = SoundPlayer()
-    private val settings = Settings()
+    private var mario: PlayerMario? = null
+    private var monster: Creature? = null
 
-    private var mario: Player = Player(MARIO_ID, 10, 20, 100, 50..60)
-    private var goomba: Monster = Monster(GOOMBA_ID, 5, 15, 150, 1..15)
-    private var bowser: Monster = Monster(BOWSER_ID, 20, 10, 200, 10..20)
+    lateinit var controller: Controller
 
-    private var turnOwner: Creature = mario//Int = MARIO_ID
-    private var level: Int = 0
-    private var gameIsPlaying = false
+    private var turnOwner: Creature? = null
+    private var level: Level = Title()
+    var isPlaying = false
+        private set
 
 
-    fun launchGame() {//context: Context) {
-//        soundPlayer.playMusic(context.resources.assets(R.raw.nine9999_in_1_3_0))//(R.raw.nine9999_in_1_3_0))
-//        soundPlayer.playMusic(context, R.raw.nine9999_in_1_3_0)
-//        soundPlayer.playMusic(ui!!, level)//R.raw.nine9999_in_1_3_0)
-        ui.prepareLevel(level)
-        soundPlayer.playMusic(ui.context(), level)//R.raw.nine9999_in_1_3_0)
-        //запуск музыки
-        //запуск анимации картинок
+    fun launchGame() {
+        isPlaying = true
+        level.prepareLevel()
+        SoundPlayer.playMusic(UiManager.context(), level.bgSound)
     }
 
-    fun setUI(activity: MainActivity) {
-//        ui = activity
-        ui.init(activity)
+    fun setMario(newMario: PlayerMario?) {
+        mario = newMario
     }
 
     fun start() {
-        level++
-//        if (level == 4) level = 0 // убрать, для ранних тестов плеера
-//        selectLevel()
-        soundPlayer.playMusic(ui.context(), level)
-
-        CoroutineScope(Dispatchers.Main).launch {
-            ui.startScreenDimming(120){}
-            ui.prepareLevel(level)
-//            ui.restoreScreenBrightness()
-            ui.startScreenBrightening(120){}
-            ui.launchLevel(level)
-        }
-//        soundPlayer.playMusic(ui.context(), level)
-//        ui.startScreenDimming(120L) {
-//            ui.showScreen(level)
-//            ui.startScreenBrightening(120L) {
-//
-//            }
-//        }
-
-
+        controller.lockActionButtons()
+        level = Level.next()
+        level.startLevelSwitching()
+        monster = level.enemy
     }
 
     fun startDancing() {
-
-    }
-
-    fun backToTitle() {
-        level = 0
-        selectLevel()
+        turnOwner = mario
+        mario?.animAppearance {}?.invokeOnCompletion {
+            mario?.animDefaultLoop()
+//            controller.unlockActionButtons()
+//            UiManager.unlockButtons()
+        }
     }
 
     fun pause() {
-        soundPlayer.pause()
+        SoundPlayer.pause()
+        SoundPlayer.playSFX(UiManager.context(), SoundPlayer.SFX_PAUSE) {}
+
+        isPlaying = false
     }
 
     fun resume() {
-        soundPlayer.resume()
+        if ( !isPlaying ) SoundPlayer.playSFX(UiManager.context(), SoundPlayer.SFX_PAUSE) {}
+        SoundPlayer.resume()
+
+
     }
 
     fun load() {
@@ -98,159 +71,139 @@ object Game {
 
     }
 
-    fun overrideCreature(
-        id: Int,
-        attack: Int,
-        defense: Int,
-        maxHealth: Int,
-        damage: IntRange,
-        firstAidCount: Int?
-    ) {
-        when (id) {
-            MARIO_ID -> mario = Player(id, attack, defense, maxHealth, damage, firstAidCount!!)
-            GOOMBA_ID -> goomba = Monster(id, attack, defense, maxHealth, damage)
-            BOWSER_ID -> bowser = Monster(id, attack, defense, maxHealth, damage)
-        }
+    fun refreshHealth() {
+        UiManager.playerHealth().text = mario?.health.toString()
+        UiManager.monsterHealth().text = monster?.health.toString()
+        UiManager.firstAid().text = mario?.firstAidCount.toString()
     }
 
     fun attack() {
-        var successAttack: Boolean
-        var finishRound = false
-        val victim = getOpponent()
-        var modifier = turnOwner.attack - (victim.defense + 1)
-        if (modifier < 1) modifier = 1
-        successAttack = attackSuccess(modifier)
-        if (successAttack) {
-            val dmg = turnOwner.damage.random()
-            if (victim.health > dmg) victim.health -= dmg
-            else {
-                victim.health = 0
-                finishRound = true//finishRound()
-            }
-        }
-//        else {
-//            opponentInDefense(victim)
-//            switchTurnOwner()
-//        }
-        completeTurn(successAttack, finishRound)
+        controller.lockActionButtons()
+        val opponent = getOpponent()
+        val success = turnOwner?.attack(opponent)
+        val opponentIsAlive = opponent.health > 0
 
+        val jobOwner = turnOwner!!.animAttack { }
+        val jobOpponent = if (success!!) opponent.animDamage { }
+        else opponent.animDefense { }
+
+//        if ((turnOwner !is PlayerMario) && ( ! opponentIsAlive)) SoundPlayer.stopWithEffect()
+        completeTurn(jobOwner, jobOpponent, opponentIsAlive)
     }
 
-    fun healPlayer() : Boolean = with(getPlayer()) {
-        if (firstAidCount < 1) return false
-        firstAidCount--
-        health += (maxHealth * 3 / 10)
-        if (health > maxHealth) health = maxHealth
-        return true
-    }
-
-
-    private fun completeTurn(successAttack: Boolean, finishRound: Boolean) {
-        when (turnOwner.id) {
-            MARIO_ID -> ui.animateMario(Mario.attack(), false) {
-                ui.animateMario(Mario.default(), true) {}
-            }
-//            GOOMBA_ID -> ui.animateGoomba()
-//            BOWSER_ID -> ui.animateBowser()
-        }
-        if (successAttack) {
-            if (getOpponent().id == GOOMBA_ID)
-                ui.animateGoomba(Goomba.damage(), false) {
-                    ui.animateGoomba(Goomba.default(), true) {}
+    fun healPlayer() {
+        if (mario!!.heal()) {
+            controller.lockActionButtons()
+            mario?.animHeal {}?.invokeOnCompletion {
+                CoroutineScope(Dispatchers.Main).launch {
+                    controller.unlockActionButtons()
+                    mario?.animDefaultLoop()
+                    refreshHealth()
                 }
-            else ui.animateBowser(Bowser.damage(), false) {
-                ui.animateBowser(Bowser.default(), true) {}
-            }
-        }
-        else if (getOpponent().id == GOOMBA_ID)
-            ui.animateGoomba(Goomba.defense(), false) {
-                ui.animateGoomba(Goomba.default(), true) {}
-            }
-        else ui.animateBowser(Bowser.defense(), false) {
-            ui.animateBowser(Bowser.default(), true) {}
-        }
-
-        if (finishRound) {
-            ui.animateMario(Mario.win(), false) {
-                ui.animateMario(Mario.winLoop(), true) {}
-            }
-            if (getOpponent().id == GOOMBA_ID) ui.animateGoomba(Goomba.lose(), false) {
-                start()
-            }
-            else ui.animateBowser(Bowser.lose(), false) {
-                ui.animateBowser(Bowser.loseLoop(), true) {}
-                start()
             }
         }
     }
 
-    private fun selectLevel() {
-//        soundPlayer.playMusic(ui!!, level)
-//        ui?.selectLevel(level)
-    }
 
-    private fun getPlayer() : Player {
-        return mario
-    }
+    private fun completeTurn(jobOwner: Job, jobOpponent: Job, opponentIsAlive: Boolean) {
+        if (opponentIsAlive) {
+            CoroutineScope(Dispatchers.IO).launch {
+                jobOwner.join()
 
-    private fun getMonster() : Monster? {
-        return when (level) {
-            1 -> goomba
-            2 -> bowser
-            else -> null
+                turnOwner!!.animDefaultLoop()
+                jobOpponent.join()
+                getOpponent().animDefaultLoop()
+                withContext(Dispatchers.Main) {
+                    refreshHealth()
+                }
+            }.invokeOnCompletion {
+                switchTurnOwner()
+            }
+        }
+        else {
+            controller.lockActionButtons()
+            CoroutineScope(Dispatchers.IO).launch {
+                jobOwner.join()
+                turnOwner!!.animWin {}.invokeOnCompletion {
+                    if (turnOwner !is PlayerMario) {
+                        turnOwner!!.animWinLoop()
+                    }
+                }
+                jobOpponent.join()
+                getOpponent().animLose {}.invokeOnCompletion {
+                    getOpponent().animLoseLoop()
+                }
+                withContext(Dispatchers.Main) {
+                    refreshHealth()
+                }
+                delay(3_500L)
+            }.invokeOnCompletion {
+                if (turnOwner is PlayerMario) win()
+                else lose()
+            }
         }
     }
 
     private fun getOpponent() : Creature {
-        return if (turnOwner.id == MARIO_ID) getMonster()!!
-        else getPlayer()
+        return if (turnOwner is PlayerMario) monster!!
+        else mario!!
     }
 
     private fun switchTurnOwner() { // переключить ход
-        turnOwner = getOpponent()
-//        turnOwner = if (turnOwner.id == MARIO_ID) getMonster()!!//.id
-//        else mario//MARIO_ID
-    }
+        CoroutineScope(Dispatchers.Main).launch {
+            turnOwner = getOpponent()
+            if (turnOwner !is PlayerMario) {
+                controller.lockActionButtons()
+                startAi().invokeOnCompletion {
+                    attack()
+                }
+            }
+            else {
+                controller.unlockActionButtons()
+            }
 
-    private fun opponentInDefense(creature: Creature) {
-        //getOpponent
-    }
-
-    private fun rollTheDice() : Int {
-        return (1..settings.diceFaces).random()
-    }
-
-    private fun attackSuccess(modifier: Int) : Boolean {
-        var i = 0
-        while (i < modifier) {
-            if (rollTheDice() in settings.successfulAttack) return true
-            i++
         }
-        return false
     }
 
-    private fun finishRound() {
-        if (turnOwner.id == MARIO_ID) win()
-        else lose()
+    private fun startAi() : Job {
+        return CoroutineScope(Dispatchers.IO).launch {
+            delay(Settings.turnLength.random())
+        }
     }
 
     private fun win() {
-        if (level > 1) congrats()
-        else nextLevel()
+        val j = CoroutineScope(Dispatchers.IO).launch {
+            var job: Job? = null
+            for (i in 1..5) {
+                job = mario?.animWinShots()
+                job?.join()
+            }
+        }
+        j.invokeOnCompletion {
+            start()
+        }
     }
 
     private fun lose() {
-
+//        SoundPlayer.stopWithEffect()
+        finish()
     }
 
-
-    private fun nextLevel() {
-        level++
+    fun finish() {
+        controller.lockActionButtons()
+        mario = null
+        level = Level.select(Level.TITLE)
+        level.startLevelSwitching()
     }
 
-    private fun congrats() {
-
-    }
+//
+//    private fun nextLevel() {
+//        level++
+//    }
+//
+//    private fun congrats() {
+//
+//    }
 
 
 

@@ -2,4 +2,44 @@
     <string name="app_name">Test Game</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="game">Минутка ностальгии</string>
+    <string name="start">Начать</string>
+    <string name="options">Опции</string>
+    <string name="back">Назад</string>
+    <string name="attack">Атака</string>
+    <string name="heal">Лечиться</string>
+    <string name="back_to_main_menu">В главное меню</string>
+    <string name="music">Музыка</string>
+    <string name="sfx">Звуки</string>
+    <string name="congrats">Поздравления! Вы одолели всех монстров!</string>
+    <string name="override_creatures">Переопределение существ</string>
+    <string name="mario">Мариус</string>
+    <string name="goomba">Гумба</string>
+    <string name="bowser">Боузер</string>
+    <string name="restore">Восстановить</string>
+
+    <string name="override_mario">Переопределить Мариуса</string>
+    <string name="override_goomba">Переопределить Гумбу</string>
+    <string name="override_bowser">Переопределить Боузера</string>
+    <string name="attack_">1–30</string>
+    <string name="attack_description">[АТАКА] в диапазоне от 1 до 30</string>
+    <string name="defense">1–30</string>
+    <string name="defense_description">[ЗАЩИТА] в диапазоне от 1 до 30</string>
+    <string name="max_health">1–1000</string>
+    <string name="max_health_description">[МАКС. ЗДОРОВЬЕ] в диапазоне от 1 до 1000</string>
+    <string name="damage">1–1000</string>
+    <string name="damage_2">до 1000</string>
+    <string name="damage_description">[УРОН] в диапазоне от 1 </string>
+    <string name="first_aid">0–4</string>
+    <string name="first_aid_description">[АПТЕЧКИ] в диапазоне от 0 до 4</string>
+
+    <string name="confirm">Применить</string>
+    <string name="cancel">Отмена</string>
+    <string name="success">Готово! Существо переопределено!</string>
+    <string name="fail">Не удалось переопределить существо! Проверьте вводимые данные</string>
+    <string name="fill_all_fields">Отмена. Необходимо заполнить все поля!</string>
+    <string name="only_integer">Принимаются только Целые числа!</string>
+
+    <string name="pause">Пауза</string>
+    <string name="resume">Возобновить</string>
 </resources>

@@ -21,4 +21,8 @@
         android:id="@+id/nav_congrats"
         android:name="com.andre.guryanov.testgame.CongratulationsFragment"
         tools:layout="@layout/fragment_congratulations" />
+    <fragment
+        android:id="@+id/nav_options"
+        android:name="com.andre.guryanov.testgame.OptionsFragment"
+        tools:layout="@layout/fragment_options" />
 </navigation>
