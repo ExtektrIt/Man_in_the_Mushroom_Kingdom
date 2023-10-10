@@ -79,13 +79,14 @@ object SoundPlayer {
 
     fun playSFX(context: Context, resId: Int, delay: Long = sfxDelay, callback: () -> Unit) {
         if ( ! enableSFX) return
-        val sfx = MediaPlayer.create(context, resId)
-        sfx.setOnCompletionListener {
-            sfx.stop()
-            sfx.reset()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val sfx = MediaPlayer.create(context, resId)
+            sfx.setOnCompletionListener {
+                sfx.stop()
+                sfx.reset()
 //            callback()
-        }
-        CoroutineScope(Dispatchers.Main).launch {
+            }
             sfx.setVolume(sfxVolume, sfxVolume)
             delay(delay)
             sfx.start()

@@ -12,15 +12,15 @@ object CreatureConfigurator {
     var bowser: MonsterBowser? = null
 
     fun createMario() : PlayerMario {
-        return mario ?: PlayerMario(15, 15, 100, 10..20, 4)
+        return mario ?: PlayerMario(15, 20, 100, 10..20, 4)
     }
 
     fun createGoomba() : MonsterGoomba {
-        return goomba ?: MonsterGoomba(10, 15, 150, 1..15)
+        return goomba ?: MonsterGoomba(15, 15, 150, 1..10)
     }
 
     fun createBowser() : MonsterBowser {
-        return bowser ?: MonsterBowser(25, 10, 200, 10..30)
+        return bowser ?: MonsterBowser(15, 10, 200, 15..25)
     }
 
     fun restoreAllHealth() {
@@ -39,9 +39,9 @@ object CreatureConfigurator {
             && (aid in 0..4))
         {
             when (id) {
-                R.string.override_mario -> overrideMario(attack, defense, maxHealth, damage, aid) //PlayerMario(attack, defense, maxHealth, damage, aid)
-                R.string.override_goomba -> overrideGoomba(attack, defense, maxHealth, damage) //MonsterGoomba(attack, defense, maxHealth, damage)
-                R.string.override_bowser -> overrideBowser(attack, defense, maxHealth, damage) //MonsterBowser(attack, defense, maxHealth, damage)
+                R.string.override_mario -> overrideMario(attack, defense, maxHealth, damage, aid)
+                R.string.override_goomba -> overrideGoomba(attack, defense, maxHealth, damage)
+                R.string.override_bowser -> overrideBowser(attack, defense, maxHealth, damage)
             }
             return true
         }

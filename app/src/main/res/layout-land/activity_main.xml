@@ -21,14 +21,6 @@
             android:layout_height="match_parent"
             android:layout_weight="2">
 
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/gifImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/title_anim"
-                android:visibility="gone" />
-
             <ImageView
                 android:id="@+id/background"
                 android:layout_width="0dp"
