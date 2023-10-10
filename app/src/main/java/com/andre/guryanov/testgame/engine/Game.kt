@@ -46,12 +46,12 @@ object Game {
     fun pause() {
         SoundPlayer.pause()
         SoundPlayer.playSFX(UiManager.context(), SoundPlayer.SFX_PAUSE) {}
-
         isPlaying = false
     }
 
     fun resume() {
-        if ( !isPlaying ) SoundPlayer.playSFX(UiManager.context(), SoundPlayer.SFX_PAUSE) {}
+        isPlaying = true
+        SoundPlayer.playSFX(UiManager.context(), SoundPlayer.SFX_PAUSE) {}
         SoundPlayer.resume()
     }
 

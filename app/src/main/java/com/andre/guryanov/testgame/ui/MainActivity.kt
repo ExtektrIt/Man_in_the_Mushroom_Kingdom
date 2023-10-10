@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    private var options: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +42,8 @@ class MainActivity : AppCompatActivity() {
         Game.pause()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onRestart() {
+        super.onRestart()
         Game.resume()
     }
 
